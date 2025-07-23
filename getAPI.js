@@ -1,7 +1,10 @@
 function onOpen()
 {
   const UI = SpreadsheetApp.getUi();
-  UI.createMenu("Osu API").addItem('Save Osu API Key', 'promptApi').addToUi();
+  const menu = UI.createMenu("Osu API")
+ menu.addItem('Save Osu API Key', 'promptApi').addToUi();
+ menu.addItem('Get Match Results', 'getMatchup').addToUi();
+  
 }
 
 function promptApi()
