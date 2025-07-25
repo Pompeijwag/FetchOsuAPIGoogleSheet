@@ -53,10 +53,12 @@ function getPracticeScores()
           {
             if(playerid == score.user_id)
             {
+              const range = sheet.getRange(10 + i * 3, 7 + 6 * index2, 10 + i * 3, 7 + 6 * index2 + 3);
+              const values = range.getValues();
               for(let ii = 0; ii < 4; ii++)
               {
-                const cell = sheet.getRange(10 + i * 3, 7 + 6 * index2 + ii);
-                const val = cell.getValue();
+                const val = values[0][ii];
+                const cell = sheet.getRange(10 + i * 3, 7 + 6 * index2 + ii)
                 if(ii == 3 && val != "" && Number.isInteger(val))
                 {
                   cell.setValue(Math.round((Number(val) + Number(score.score))/ 2));
