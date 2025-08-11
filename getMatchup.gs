@@ -5,6 +5,9 @@ function getMatchup() {
   const namecell = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(row - 1, 4);
   const scorecell = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(row + 1, col);
   const mpcell = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(row + 2, col);
+  let ezmult = 1.0
+  const ez = mpcell.getValue();
+  if(ez !== undefined && ez !== ""){ezmult = ez;};
   const warmups = scorecell.getValue();
   const myname = namecell.getValue();
   var teamplay = true;
@@ -45,11 +48,25 @@ function getMatchup() {
         {
           if(score.team == team)
           {
-            hero = Number(hero) + Number(score.score);
+            if(score.enabled_mods & 2)
+            {
+              hero = Number(hero) + Math.round(Number(score.score) * ezmult);
+            }
+            else
+            {
+              hero = Number(hero) + Number(score.score);
+            }
           }
           else
           {
-            villian = Number(villian) + Number(score.score);
+            if(score.enabled_mods & 2)
+            {
+              villian = Number(villian) + Math.round(Number(score.score) * ezmult);
+            }
+            else
+            {
+              villian = Number(villian) + Number(score.score);
+            }
           }
         });
       }
